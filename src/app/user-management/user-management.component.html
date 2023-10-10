@@ -1,0 +1,67 @@
+<div class="col pt-2">
+
+  <div class="card">
+    <div class="card-header">
+      <div class="row">
+        <div class="col-md-10">
+          <h4 class="card-title">Usuarios</h4>
+        </div>
+        <div class="col-md-2 float-sm-end">
+          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#userModal" (click)="openCreateModal()">Agregar</button>
+        </div>
+      </div>
+
+    </div>
+    <div class="card-body">
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th>Nombre</th>
+            <th>Correo</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let user of users">
+            <td>{{ user.name }}</td>
+            <td>{{ user.email }}</td>
+            <td>
+              <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#userModal" (click)="openEditModal(user.id) ">Editar</button>
+              <button type="button" class="btn btn-danger" (click)="deleteUser(user.id)">Borrar</button>
+            </td>
+          </tr>          
+        </tbody>
+      </table>
+
+    </div>
+    <div class="card-footer"><button type="button" class="btn btn-success" (click)="initializeDefaultUsers()">Reestablecer BD</button></div>
+  </div>
+</div>
+
+<!-- Modal para editar/crear usuario -->
+<div class="modal fade" id="userModal" tabindex="-1" aria-labelledby="userModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="userModalLabel">{{ modalTitle }}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="userForm">
+          <div class="mb-3">
+            <label for="name" class="form-label">Nombre</label>
+            <input type="text" id="name" class="form-control" formControlName="name">
+          </div>
+          <div class="mb-3">
+            <label for="email" class="form-label">Correo</label>
+            <input type="email" id="email" class="form-control" formControlName="email">
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-primary" (click)="saveChanges()">Guardar Cambios</button>
+      </div>
+    </div>
+  </div>
+</div>
